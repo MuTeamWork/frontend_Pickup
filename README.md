@@ -26,6 +26,7 @@ mock地址:'https://www.fastmock.site/mock/0314575b179f8f13583244db97453df4/pic'
  code = 200 为成功
 
 ###  获取图片
+/getFileList
 
 ```json
 {
@@ -38,13 +39,13 @@ mock地址:'https://www.fastmock.site/mock/0314575b179f8f13583244db97453df4/pic'
     {
       "id": "2",
       "file_url": "www.cover.webp"
-    },
+    }
   ]
 }
 ```
 
-### 上传图片
-
+###  上传图片
+/fileUpload
 ```json
 {
   "code": "200",
