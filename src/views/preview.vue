@@ -19,11 +19,10 @@ const Data = reactive({
 })
 onMounted(() => {
     getFile()
-    // console.log(fileList);
 })
 const getFile = () => {
     getFileList().then(res => {
-        if (res.code === 200) {
+        if (res.code === '200') {
             Data.fileList = res.data
         }
     })

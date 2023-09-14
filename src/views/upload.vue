@@ -29,7 +29,7 @@ import { ElMessage } from 'element-plus'
 
 const imageUrls = ref([])
 
-const uploadAction = "http://localhost:3000/fileUpload" // 替换成你的上传接口地址
+const uploadAction = "https://www.fastmock.site/mock/0314575b179f8f13583244db97453df4/pic/fileUpload" // 替换成你的上传接口地址
 
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
@@ -37,8 +37,7 @@ const beforeUpload = (file) => {
 
   if (!isJpgOrPng) {
     ElMessage.error('只能上传 JPG/PNG 格式的图片')
-  }
-  if (!isLt500K) {
+  }else if (!isLt500K) {
     ElMessage.error('图片大小必须小于 500KB')
   }
 
@@ -47,7 +46,6 @@ const beforeUpload = (file) => {
 
 const handleSuccess = (response, file) => {
   // 上传成功，添加图片链接
-  response.imageUrl = "";
   imageUrls.value.push(response.imageUrl)
   ElMessage({
     message: '上传成功',

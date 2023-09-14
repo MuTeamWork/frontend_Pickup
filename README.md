@@ -1,7 +1,24 @@
-# Vue 3 + Vite
+## 前端第一版
+初始化：
+```
+npm install
+```
+原神(没有 启动！
+```
+vite
+```
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-## Recommended IDE Setup
+现在就两个页面
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+上传
+![image](https://github.com/MuTeamWork/frontend_Pickup/assets/91261153/6ec08ff6-5013-4def-8cba-986cc03874d5)
+图片展示
+![image](https://github.com/MuTeamWork/frontend_Pickup/assets/91261153/a4f5d349-ec8d-45c8-91b2-3131df1a628d)
+登录都还没写，懒得写能用就行
+
+
+mock地址:'https://www.fastmock.site/mock/0314575b179f8f13583244db97453df4/pic'
+
+
+呃呃呃
