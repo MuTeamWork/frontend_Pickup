@@ -22,3 +22,33 @@ mock地址:'https://www.fastmock.site/mock/0314575b179f8f13583244db97453df4/pic'
 
 
 呃呃呃
+
+ code = 200 为成功
+
+###  获取图片
+
+```json
+{
+  "code": "200",
+  "data": [
+    {
+      "id": "1",
+      "file_url": "www.cover.webp"
+    },
+    {
+      "id": "2",
+      "file_url": "www.cover.webp"
+    },
+  ]
+}
+```
+
+### 上传图片
+
+```json
+{
+  "code": "200",
+  "imageUrl": "www.rousel-cover.webp",
+  "desc": "成功"
+}
+```
