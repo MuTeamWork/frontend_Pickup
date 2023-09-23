@@ -1,10 +1,18 @@
 <template>
   <div class="container">
-    <el-upload class="upload-demo" name="avatar" drag :before-upload="beforeUpload" :on-success="handleSuccess" :on-error="handleError" :action="uploadAction" :multiple="true">
-      <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-      <div class="el-upload__text">
-        拖拽 /点击此处选择图片
+    <el-upload class="upload-demo" name="avatar" drag :before-upload="beforeUpload" :on-success="handleSuccess"
+               :on-error="handleError" :action="uploadAction" :multiple="true">
+      <div class="Background">
+        <div class="shape">
+          <div class="Rectangle1"></div>
+          <div class="Rectangle2"></div>
+          <div class="Polygon1"></div>
+          <div class="Ellipse1"></div>
+        </div>
       </div>
+      <div class="UploadAndShareYourImages">Upload and share your images</div>
+      <div class="DragAndDropFilesHereOrClickToUpload">
+        <span>Drag and drop files here or </span><span>Click to upload</span></div>
       <template #tip>
         <div class="el-upload__tip">
           小于500kb的Jpg /png文件
@@ -23,9 +31,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { UploadFilled } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
+import {ref} from 'vue'
+import {UploadFilled} from '@element-plus/icons-vue'
+import {ElMessage} from 'element-plus'
 
 const imageUrls = ref([])
 
@@ -37,10 +45,9 @@ const beforeUpload = (file) => {
 
   if (!isJpgOrPng) {
     ElMessage.error('只能上传 JPG/PNG 格式的图片')
-  }else if (!isLt500K) {
+  } else if (!isLt500K) {
     ElMessage.error('图片大小必须小于 500KB')
   }
-
   return isJpgOrPng && isLt500K
 }
 
@@ -60,12 +67,94 @@ const handleError = (err) => {
 </script>
 
 <style scoped>
+/* 外层包裹形状的容器 */
+.Background {
+  width: 280px;
+  height: 280px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto 40px;
+}
+
+.Rectangle1 {
+  width: 140px;
+  height: 140px;
+  left: 0;
+  top: 140px;
+  position: absolute;
+  background: rgba(255, 179, 25, 0.12);
+}
+
+.Rectangle2 {
+  width: 99px;
+  height: 99px;
+  left: 140px;
+  top: 210px;
+  position: absolute;
+  transform: rotate(-45deg);
+  transform-origin: 0 0;
+  background: rgba(255, 78, 100, 0.12);
+}
+
+.Polygon1 {
+  width: 140px;
+  height: 140px;
+  left: 140px;
+  top: 0;
+  position: absolute;
+  background: rgba(46, 125, 50, 0.12);
+}
+
+.Ellipse1 {
+  width: 140px;
+  height: 140px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  background: rgba(52, 72, 240, 0.12);
+  border-radius: 9999px;
+}
+
+/* Text */
+.UploadAndShareYourImages {
+  align-self: stretch;
+  text-align: center;
+  color: #191C1D;
+  font-size: 36px;
+  font-family: Figtree;
+  font-weight: 600;
+  line-height: 60px;
+  letter-spacing: 2px;
+  word-wrap: break-word;
+  margin-bottom: 40px;
+}
+
+.DragAndDropFilesHereOrClickToUpload {
+  align-self: stretch;
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.DragAndDropFilesHereOrClickToUpload span {
+  color: #191C1D;
+  font-size: 32px;
+  font-family: Figtree;
+  font-weight: 600;
+  line-height: 60px;
+  letter-spacing: 2px;
+  word-wrap: break-word;
+}
+
 .container {
-  width: 50%;
+  min-height: 696px;
+  max-height: 928px;
+  width: 80%;
   margin: 20px auto;
 }
 
 :deep(.el-upload-dragger) {
-  border: 5px dashed var(--el-border-color);
+  border: 16px dashed var(--el-border-color);
 }
 </style>

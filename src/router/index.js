@@ -13,10 +13,20 @@ const route = [
                 component: () => import('../views/upload.vue')
             },
             {
-                path: '/preview',
-                name: 'preview',
+                path: '/history',
+                name: 'history',
                 component: () => import('../views/preview.vue')
-            }
+            },
+            {
+                path: '/settings',
+                name: 'settings',
+                component: () => import('../views/preview.vue')
+            },
+            {
+                path: '/faq',
+                name: 'faq',
+                component: () => import('../views/preview.vue')
+            },
         ]
     },
 ]

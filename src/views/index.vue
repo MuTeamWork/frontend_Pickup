@@ -1,33 +1,59 @@
 <template>
-    <div class="common-layout">
-        <el-container>
-            <el-header>
-                <el-menu class="el-menu-demo" router  mode="horizontal" :ellipsis="false" default-active="/upload">
-                    <h2>PicUp</h2>
-                    <div class="flex-grow"></div>
-                    <el-menu-item index="/preview">图片预览</el-menu-item>
-                    <el-menu-item index="/upload">图片上传</el-menu-item>
-                    <div class="flex-grow"></div>
-                </el-menu>
-            </el-header>
-            <el-main>
-                <router-view></router-view>
-            </el-main>
-        </el-container>
-
+  <div class="DesktopUpload">
+    <Sidebar/>
+<!--  主体  -->
+    <div class="MainArea">
+<!--   导航栏   -->
+      <Navbar />
+<!--   可变部分   -->
+      <router-view></router-view>
+<!--   底部   -->
+      <Footer/>
     </div>
+  </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
+<script>
+
+import Navbar from './navbar.vue'; // 引用导航栏组件的路径
+import Sidebar from './Sidebar.vue';
+import Footer from './footer.vue';
+export default {
+  components: {
+    Navbar,
+    Footer,
+    Sidebar
+  }
+}
 
 </script>
 
 <style scoped>
-.common-layout{
-    height: 100%;
+/* Reset some default styles */
+html, body, div, img {
+  margin: 0;
+
+  border: 0;
 }
-.flex-grow {
-    flex-grow: 1;
+
+/* Global styles */
+body {
+  font-family: Roboto, sans-serif;
+  background-color: white;
+}
+
+/* MainArea */
+.MainArea {
+  width: calc(100vw - 104px);;
+
+}
+
+/* DesktopUpload */
+.DesktopUpload {
+  background: white;
+  justify-content: center;
+  align-items: flex-start;
+  display: inline-flex;
+
 }
 </style>
