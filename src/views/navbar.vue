@@ -1,13 +1,13 @@
 <template>
   <div class="HeaderArea">
     <div class="Logo">
-      <img class="MutLogo1" src="../assets/pic.png"/>
+      <img class="MutLogo1" src="../assets/pic.png" alt=""/>
       <div class="Picup">
         PicUp
       </div>
     </div>
     <div class="AvatarPicture">
-      <img class="AvatarPicture" src="../assets/user.jfif"/>
+      <img class="AvatarPicture" src="../assets/user.jfif" alt=""/>
     </div>
   </div>
 </template>

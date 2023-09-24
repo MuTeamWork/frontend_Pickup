@@ -23,8 +23,8 @@
 <style scoped>
 /* ContentArea */
 .ContentArea {
-  width: calc(100vw - 104px);
-  height: 100%; /* 设置高度为100%以确保填充整个父容器 */
+  width: calc(100vw - 120px);
+  height: 100%;
   position: relative;
   flex-direction: column;
   display: flex;
@@ -36,7 +36,7 @@
   justify-content: space-between; /* 使文字和图片之间有空间 */
   align-items: center;
   display: flex;
-  flex-grow: 1; /* 让FooterArea占满剩余空间 */
+  flex-grow: 1;
 }
 
 /* LeftSection */

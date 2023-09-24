@@ -32,20 +32,13 @@ export default {
 /* Reset some default styles */
 html, body, div, img {
   margin: 0;
-
   border: 0;
-}
-
-/* Global styles */
-body {
-  font-family: Roboto, sans-serif;
-  background-color: white;
 }
 
 /* MainArea */
 .MainArea {
-  width: calc(100vw - 104px);;
-
+  width: calc(100vw - 120px);
+  padding-left: 104px;
 }
 
 /* DesktopUpload */
@@ -54,6 +47,5 @@ body {
   justify-content: center;
   align-items: flex-start;
   display: inline-flex;
-
 }
 </style>

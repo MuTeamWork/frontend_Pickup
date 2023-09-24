@@ -85,12 +85,25 @@ export default {
   created() {
     this.currentRoute = this.$route.path;
     const router = useRouter();
+
     // 监听路由变化
     router.afterEach((to) => {
       this.currentRoute = to.path;
     });
+
+    // 添加滚动事件监听器
+    window.addEventListener('scroll', this.handleScroll);
   },
   methods: {
+    handleScroll() {
+      // 获取滚动的垂直距离
+      const scrollY = window.scrollY || window.pageYOffset;
+
+      // 根据需要调整侧边栏的位置
+      // 例如：你可以使用 this.$refs.MenuArea 来引用 .MenuArea 元素
+      // 然后设置其 top 属性
+      // this.$refs.MenuArea.style.top = `${scrollY}px`;
+    },
     getIconClass(iconName) {
       return {
         'selected': this.currentRoute === `/${iconName}`,
@@ -115,6 +128,9 @@ export default {
 <style scoped>
 /* MenuArea */
 .MenuArea {
+  position: fixed;
+  top: 0; /* 你可以根据需要设置初始位置 */
+  left: 0; /* 你可以根据需要设置初始位置 */
   height: 100vh;
   align-self: stretch;
   background: #F2F4F5;
