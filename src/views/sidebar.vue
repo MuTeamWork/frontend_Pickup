@@ -98,11 +98,6 @@ export default {
     handleScroll() {
       // 获取滚动的垂直距离
       const scrollY = window.scrollY || window.pageYOffset;
-
-      // 根据需要调整侧边栏的位置
-      // 例如：你可以使用 this.$refs.MenuArea 来引用 .MenuArea 元素
-      // 然后设置其 top 属性
-      // this.$refs.MenuArea.style.top = `${scrollY}px`;
     },
     getIconClass(iconName) {
       return {

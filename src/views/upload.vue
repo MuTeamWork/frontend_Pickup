@@ -29,25 +29,25 @@
             <div class="LinkOnly1">
               <div class="LinkOnly">Link only</div>
               <div class="LinkArea">
-                <div class="HttpsExampleComImage4lkrcozn">{{ imageUrls[0] }}</div>
+                <div class="HttpsExampleComImage4lkrcozn">{{ imageUrls[1] }}</div>
               </div>
             </div>
             <div class="LinkOnly1">
               <div class="Html">HTML</div>
               <div class="LinkArea">
-                <div class="AHrefHttpsExampleComImage4lkrcoznTargetBlankImgSrcHttpsExampleComImage4lkrcoznJpgA">&lt;a href="https://example.com/image/4LkRCOzn" target="_blank"&gt;&lt;img src="{{ imageUrls[0] }}" &gt;&lt;/a&gt;</div>
+                <div class="AHrefHttpsExampleComImage4lkrcoznTargetBlankImgSrcHttpsExampleComImage4lkrcoznJpgA">&lt;a href="https://example.com/image/4LkRCOzn" target="_blank"&gt;&lt;img src="{{ imageUrls[1] }}" &gt;&lt;/a&gt;</div>
               </div>
             </div>
             <div class="LinkOnly1">
               <div class="Bbcode">BBCode</div>
               <div class="LinkArea">
-                <div class="UrlHttpsExampleComImage4lkrcoznImgHttpsExampleComImage4lkrcoznJpgImgUrl">[url={{ imageUrls[0] }}[/img][/url]</div>
+                <div class="UrlHttpsExampleComImage4lkrcoznImgHttpsExampleComImage4lkrcoznJpgImgUrl">[url={{ imageUrls[1] }}[/img][/url]</div>
               </div>
             </div>
             <div class="LinkOnly1">
               <div class="Markdown">Markdown</div>
               <div class="LinkArea">
-                <div class="ExampleFileNamePngHttpsExampleComImage4lkrcoznJpg">![example_file_name.png]({{ imageUrls[0] }})</div>
+                <div class="ExampleFileNamePngHttpsExampleComImage4lkrcoznJpg">![example_file_name.png]({{ imageUrls[1] }})</div>
               </div>
             </div>
           </div>
@@ -86,7 +86,8 @@ const beforeUpload = (file) => {
 
 const handleSuccess = (response, file) => {
   // 上传成功，添加图片链接
-  imageUrls.value.push(response.imageUrl)
+  imageUrls.value.push(response.data.fileThumbnailPath)
+  imageUrls.value.push(response.data.fileImagePath)
   ElMessage({
     message: '上传成功',
     type: 'success',
