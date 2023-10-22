@@ -27,7 +27,7 @@
   height: 100%;
   position: relative;
   flex-direction: column;
-  display: flex;
+  bottom: 0;
 }
 
 /* FooterArea */

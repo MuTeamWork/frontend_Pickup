@@ -29,25 +29,25 @@
             <div class="LinkOnly1">
               <div class="LinkOnly">Link only</div>
               <div class="LinkArea">
-                <div class="HttpsExampleComImage4lkrcozn">{{ imageUrls[1] }}</div>
+                <div class="HttpsExampleComImage4lkrcozn">{{ imageUrls[0] }}</div>
               </div>
             </div>
             <div class="LinkOnly1">
               <div class="Html">HTML</div>
               <div class="LinkArea">
-                <div class="AHrefHttpsExampleComImage4lkrcoznTargetBlankImgSrcHttpsExampleComImage4lkrcoznJpgA">&lt;a href="https://example.com/image/4LkRCOzn" target="_blank"&gt;&lt;img src="{{ imageUrls[1] }}" &gt;&lt;/a&gt;</div>
+                <div class="AHrefHttpsExampleComImage4lkrcoznTargetBlankImgSrcHttpsExampleComImage4lkrcoznJpgA">&lt;a href="https://example.com/image/4LkRCOzn" target="_blank"&gt;&lt;img src="{{ imageUrls[0] }}" &gt;&lt;/a&gt;</div>
               </div>
             </div>
             <div class="LinkOnly1">
               <div class="Bbcode">BBCode</div>
               <div class="LinkArea">
-                <div class="UrlHttpsExampleComImage4lkrcoznImgHttpsExampleComImage4lkrcoznJpgImgUrl">[url={{ imageUrls[1] }}[/img][/url]</div>
+                <div class="UrlHttpsExampleComImage4lkrcoznImgHttpsExampleComImage4lkrcoznJpgImgUrl">[url={{ imageUrls[0] }}[/img][/url]</div>
               </div>
             </div>
             <div class="LinkOnly1">
               <div class="Markdown">Markdown</div>
               <div class="LinkArea">
-                <div class="ExampleFileNamePngHttpsExampleComImage4lkrcoznJpg">![example_file_name.png]({{ imageUrls[1] }})</div>
+                <div class="ExampleFileNamePngHttpsExampleComImage4lkrcoznJpg">![example_file_name.png]({{ imageUrls[0] }})</div>
               </div>
             </div>
           </div>
@@ -61,16 +61,18 @@
       </template>
     </el-upload>
   </div>
+
 </template>
 
 <script setup>
 import {ref} from 'vue'
 import {UploadFilled} from '@element-plus/icons-vue'
 import {ElMessage} from 'element-plus'
+import Footer from "./footer.vue";
 
 const imageUrls = ref([])
 
-const uploadAction = "https://www.fastmock.site/mock/0314575b179f8f13583244db97453df4/pic/fileUpload" // 替换成你的上传接口地址
+const uploadAction = "https://www.fastmock.site/mock/0314575b179f8f13583244db97453df4/pic/fileUpload"
 
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
@@ -86,8 +88,7 @@ const beforeUpload = (file) => {
 
 const handleSuccess = (response, file) => {
   // 上传成功，添加图片链接
-  imageUrls.value.push(response.data.fileThumbnailPath)
-  imageUrls.value.push(response.data.fileImagePath)
+  imageUrls.value.push(response.imageUrl)
   ElMessage({
     message: '上传成功',
     type: 'success',
@@ -104,7 +105,7 @@ const handleError = (err) => {
 /* 外层包裹形状的容器 */
 .Background {
   width: 280px;
-  height: 280px;
+  height: 270px;
   position: relative;
   display: flex;
   flex-direction: column;

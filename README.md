@@ -48,12 +48,8 @@ mock地址:'https://www.fastmock.site/mock/0314575b179f8f13583244db97453df4/pic'
 /fileUpload
 ```json
 {
-  "msg": "success",
-  "data": {
-    "imageName": "link.bmp",
-    "fileThumbnailPath": "http://localhost:8989/thu/0851e855-20e8-42ef-ab1e-abe04ff46dca.jpg",
-    "fileImagePath": "http://localhost:8989/image/ab122be5-ed6e-45f3-9af8-9327a39bfadc.bmp"
-  },
-  "status": 200
+  "code": "200",
+  "imageUrl": "www.rousel-cover.webp",
+  "desc": "成功"
 }
 ```

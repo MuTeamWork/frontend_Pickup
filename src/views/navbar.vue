@@ -1,3 +1,4 @@
+<!-- Navbar.vue -->
 <template>
   <div class="HeaderArea">
     <div class="Logo">
@@ -6,11 +7,18 @@
         PicUp
       </div>
     </div>
-    <div class="AvatarPicture">
+
+    <!-- AvatarPicture -->
+    <div class="AvatarPicture" @click="showLoginModal">
       <img class="AvatarPicture" src="../assets/user.jfif" alt=""/>
     </div>
+
   </div>
 </template>
+
+<script>
+
+</script>
 
 <style>
 /* HeaderArea */
@@ -58,4 +66,5 @@
   border-radius: 50%; /* 圆形头像 */
   margin-left: auto; /* 将头像推到最右侧 */
 }
+
 </style>

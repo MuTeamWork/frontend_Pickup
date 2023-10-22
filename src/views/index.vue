@@ -7,8 +7,8 @@
       <Navbar />
 <!--   可变部分   -->
       <router-view></router-view>
-<!--   底部   -->
-      <Footer/>
+      <!--   底部   -->
+      <Footer v-if="$route.path !== '/settings'" />
     </div>
   </div>
 </template>
@@ -23,8 +23,18 @@ export default {
     Navbar,
     Footer,
     Sidebar
-  }
-}
+  },
+  data() {
+    return {
+      isSettingPage: false
+    };
+  },
+  watch: {
+    $route(to, from) {
+      this.isSettingPage = to.name === 'settings';
+    }
+  },
+};
 
 </script>
 
@@ -39,6 +49,7 @@ html, body, div, img {
 .MainArea {
   width: calc(100vw - 120px);
   padding-left: 104px;
+  flex-grow: 1;
 }
 
 /* DesktopUpload */

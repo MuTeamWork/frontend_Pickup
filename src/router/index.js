@@ -2,6 +2,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Login from '../views/Login.vue';
 import Index from '../views/index.vue';
+import Setting from '../views/setting.vue';
 import Upload from '../views/upload.vue';
 import Preview from '../views/preview.vue';
 import axios from 'axios';
@@ -28,7 +29,7 @@ const routes = [
             {
                 path: '/settings',
                 name: 'settings',
-                component: Preview,
+                component: Setting,
                 meta: { requiresAuth: true },
             },
             {
