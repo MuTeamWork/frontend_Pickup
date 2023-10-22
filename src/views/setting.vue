@@ -1,6 +1,33 @@
 <script setup>
+import {ref, onMounted} from "vue";
+import {updateUserInfo} from "../api/file.js";
 
-import Footer from "./footer.vue";
+const username = ref("");
+const email = ref("");
+const currentPassword = ref("");
+const newPassword = ref("");
+
+// 初始化表单数据
+onMounted(() => {
+  // 这里可以添加初始化表单数据的逻辑
+  // 例如，从后端获取用户信息并填充表单字段
+});
+
+const submitForm = () => {
+  // 构造表单数据
+  const formData = {
+    username: username.value,
+    email: email.value,
+    currentPassword: currentPassword.value,
+    newPassword: newPassword.value,
+    // 其他表单字段
+  };
+
+  // 调用后端提交数据的函数
+  // 例如，updateUserInfo(formData) 发送请求给后端并处理响应
+  // updateUserInfo(formData);
+  console.log(formData)
+};
 </script>
 
 <template>
@@ -8,7 +35,9 @@ import Footer from "./footer.vue";
     <div class="UserContainer">
       <div class="IconsPersonOutline24px">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M18 6C14.685 6 12 8.685 12 12C12 15.315 14.685 18 18 18C21.315 18 24 15.315 24 12C24 8.685 21.315 6 18 6ZM21 12C21 10.35 19.65 9 18 9C16.35 9 15 10.35 15 12C15 13.65 16.35 15 18 15C19.65 15 21 13.65 21 12ZM27 25.5C26.7 24.435 22.05 22.5 18 22.5C13.95 22.5 9.3 24.435 9 25.515V27H27V25.5ZM6 25.5C6 21.51 13.995 19.5 18 19.5C22.005 19.5 30 21.51 30 25.5V30H6V25.5Z" fill="#191C1D"/>
+          <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M18 6C14.685 6 12 8.685 12 12C12 15.315 14.685 18 18 18C21.315 18 24 15.315 24 12C24 8.685 21.315 6 18 6ZM21 12C21 10.35 19.65 9 18 9C16.35 9 15 10.35 15 12C15 13.65 16.35 15 18 15C19.65 15 21 13.65 21 12ZM27 25.5C26.7 24.435 22.05 22.5 18 22.5C13.95 22.5 9.3 24.435 9 25.515V27H27V25.5ZM6 25.5C6 21.51 13.995 19.5 18 19.5C22.005 19.5 30 21.51 30 25.5V30H6V25.5Z"
+                fill="#191C1D"/>
         </svg>
       </div>
       <div class="User">User</div>
@@ -17,13 +46,13 @@ import Footer from "./footer.vue";
 
     <div class="SettingText">
       <div class="Username">Username</div>
-      <input class="InputField" type="text" placeholder="Tommy">
+      <input class="InputField" type="text" placeholder="Tommy" v-model="username">
     </div>
 
 
     <div class="SettingText">
       <div class="Username">Email address</div>
-      <input class="InputField" type="email" placeholder="1651215abab@outlook.com">
+      <input class="InputField" type="email" placeholder="1651215abab@outlook.com" v-model="email">
     </div>
 
     <div class="Line1"></div>
@@ -31,7 +60,9 @@ import Footer from "./footer.vue";
     <div class="UserContainer">
       <div class="IconsFileUpload">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-          <path d="M27 22.5V27H9V22.5H6V27C6 28.65 7.35 30 9 30H27C28.65 30 30 28.65 30 27V22.5H27ZM10.5 13.5L12.615 15.615L16.5 11.745V24H19.5V11.745L23.385 15.615L25.5 13.5L18 6L10.5 13.5Z" fill="#191C1D"/>
+          <path
+              d="M27 22.5V27H9V22.5H6V27C6 28.65 7.35 30 9 30H27C28.65 30 30 28.65 30 27V22.5H27ZM10.5 13.5L12.615 15.615L16.5 11.745V24H19.5V11.745L23.385 15.615L25.5 13.5L18 6L10.5 13.5Z"
+              fill="#191C1D"/>
         </svg>
       </div>
       <div class="Upload">Upload</div>
@@ -49,7 +80,7 @@ import Footer from "./footer.vue";
     <div class="Group3">
       <div class="AutoDeleteUploads">Auto delete uploads</div>
       <div class="Dropdown">
-        <div class="SelectedOption">Don’t auto delete </div>
+        <div class="SelectedOption">Don’t auto delete</div>
         <div class="DropdownIcon">▼</div>
         <div class="DropdownMenu">
           <div class="DropdownOption">Option 1</div>
@@ -67,7 +98,9 @@ import Footer from "./footer.vue";
     <div class="UserContainer">
       <div class="Security">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-          <path d="M18 1.5L4.5 7.5V16.5C4.5 24.825 10.26 32.61 18 34.5C25.74 32.61 31.5 24.825 31.5 16.5V7.5L18 1.5ZM18 17.985H28.5C27.705 24.165 23.58 29.67 18 31.395V18H7.5V9.45L18 4.785V17.985Z" fill="black"/>
+          <path
+              d="M18 1.5L4.5 7.5V16.5C4.5 24.825 10.26 32.61 18 34.5C25.74 32.61 31.5 24.825 31.5 16.5V7.5L18 1.5ZM18 17.985H28.5C27.705 24.165 23.58 29.67 18 31.395V18H7.5V9.45L18 4.785V17.985Z"
+              fill="black"/>
         </svg>
       </div>
       <div class="Security">Security</div>
@@ -75,16 +108,28 @@ import Footer from "./footer.vue";
 
     <div class="SettingText">
       <div class="Username">Current password</div>
-      <input class="InputField" type="password" placeholder="Enter your current password">
+      <input class="InputField" type="password" placeholder="Enter your current password" v-model="currentPassword">
     </div>
 
     <div class="SettingText">
       <div class="Username">New password</div>
-      <input class="InputField" type="password" placeholder="Enter your new password">
+      <input class="InputField" type="password" placeholder="Enter your new password" v-model="newPassword">
     </div>
-
-
-    <div class="ToChangeYourPasswordYouHaveToProvideYourCurrentPassword">To change your password, you have to provide your current password</div>
+    <div class="ToChangeYourPasswordYouHaveToProvideYourCurrentPassword">To change your password, you have to provide
+      your current password
+    </div>
+  </div>
+  <div class="CenteredButtonContainer">
+    <button @click="submitForm" class="FilterChip">
+      <div class="StateLayer">
+        <div class="SelectedIcon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M6.75 12.1275L3.6225 9L2.5575 10.0575L6.75 14.25L15.75 5.25L14.6925 4.1925L6.75 12.1275Z" fill="#120068"/>
+          </svg>
+        </div>
+        <div class="LabelText">Save Changes</div>
+      </div>
+    </button>
   </div>
 </template>
 
@@ -92,13 +137,74 @@ import Footer from "./footer.vue";
 /* Styles for BodyArea */
 .BodyArea {
   margin-left: 60px;
-  margin-right: 60px ;
+  margin-right: 60px;
   width: calc(100vw - 230px);
   position: relative;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   display: inline-flex;
+}
+
+
+/* Button Style */
+.FilterChip {
+  width: 173px;
+  height: 40px;
+  background: #E3DFFF;
+  border-radius: 8px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  border: none; /* Optionally remove the button border */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Optional hover effect */
+}
+
+.FilterChip:hover {
+  background: #9c8de6; /* Optional hover background color */
+}
+
+.StateLayer {
+  width: 139px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 8px;
+  padding-right: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  display: flex;
+}
+
+.SelectedIcon {
+  width: 18px;
+  height: 18px;
+  position: relative;
+}
+
+.LabelText {
+  text-align: center;
+  color: #120068;
+  font-size: 14px;
+  font-family: Roboto;
+  font-weight: 500;
+  line-height: 20px;
+  word-wrap: break-word;
+}
+
+.CenteredButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* 固定位置 */
+  width: calc(100% - 104px);
+  bottom: 0;
+  left: 104px;
+  background-color: white; /* 白色背景 */
+  padding: 10px 0 10px 0;
+  z-index: 999; /* 使按钮位于其他元素之上 */
 }
 
 /* Styles for InputField */
@@ -179,6 +285,7 @@ import Footer from "./footer.vue";
   font-weight: 400;
   line-height: 28px;
 }
+
 /* Styles for Line1 and Line2 */
 .Line1, .Line2 {
   width: calc(100vw - 230px);

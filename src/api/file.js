@@ -6,3 +6,11 @@ export function getFileList(){
         method: "get",
     })
 }
+
+export function updateUserInfo(data) {
+    return request({
+        method: "post",
+        url:"/updateUserInfo",
+        data:data,
+    })
+}

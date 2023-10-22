@@ -1,23 +1,19 @@
 <template>
   <div class="DesktopUpload">
     <Sidebar/>
-<!--  主体  -->
     <div class="MainArea">
-<!--   导航栏   -->
       <Navbar />
-<!--   可变部分   -->
       <router-view></router-view>
-      <!--   底部   -->
-      <Footer v-if="$route.path !== '/settings'" />
+      <Footer class="footer" v-if="!isSettingPage" />
     </div>
   </div>
 </template>
 
 <script>
-
-import Navbar from './navbar.vue'; // 引用导航栏组件的路径
+import Navbar from './navbar.vue';
 import Sidebar from './Sidebar.vue';
 import Footer from './footer.vue';
+
 export default {
   components: {
     Navbar,
@@ -33,13 +29,12 @@ export default {
     $route(to, from) {
       this.isSettingPage = to.name === 'settings';
     }
-  },
+  }
 };
-
 </script>
 
 <style scoped>
-/* Reset some default styles */
+  /* Reset some default styles */
 html, body, div, img {
   margin: 0;
   border: 0;
@@ -47,7 +42,10 @@ html, body, div, img {
 
 /* MainArea */
 .MainArea {
+  display: flex;
+  flex-direction: column;
   width: calc(100vw - 120px);
+  min-height: 100vh;
   padding-left: 104px;
   flex-grow: 1;
 }
@@ -58,5 +56,10 @@ html, body, div, img {
   justify-content: center;
   align-items: flex-start;
   display: inline-flex;
+}
+
+/* Ensure Footer stays at the bottom */
+.footer {
+  margin-top: auto;
 }
 </style>

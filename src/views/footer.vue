@@ -24,10 +24,8 @@
 /* ContentArea */
 .ContentArea {
   width: calc(100vw - 120px);
-  height: 100%;
   position: relative;
   flex-direction: column;
-  bottom: 0;
 }
 
 /* FooterArea */
