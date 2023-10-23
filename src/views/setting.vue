@@ -6,12 +6,43 @@ const username = ref("");
 const email = ref("");
 const currentPassword = ref("");
 const newPassword = ref("");
+const isExifDataKept = ref(false);
+
+const selectedOption = ref('Don’t auto delete'); // 初始选中值
+const dropdownOptions = ref([
+  'Option 1',
+  'Option 2',
+  'Option 3',
+  'Option 1',
+  'Option 2',
+  'Option 3',
+]);
+
+const toggleDropdown = () => {
+  // 在点击SelectedOption时，切换DropdownMenu的显示状态
+  const dropdownMenu = document.querySelector('.DropdownMenu');
+  if (dropdownMenu.style.display === 'block') {
+    dropdownMenu.style.display = 'none';
+  } else {
+    dropdownMenu.style.display = 'block';
+  }
+};
+
+const selectOption = (option) => {
+  // 点击DropdownOption时更新SelectedOption的值和隐藏DropdownMenu
+  selectedOption.value = option;
+  const dropdownMenu = document.querySelector('.DropdownMenu');
+  dropdownMenu.style.display = 'none';
+};
+
+
 
 // 初始化表单数据
 onMounted(() => {
   // 这里可以添加初始化表单数据的逻辑
   // 例如，从后端获取用户信息并填充表单字段
 });
+
 
 const submitForm = () => {
   // 构造表单数据
@@ -20,11 +51,12 @@ const submitForm = () => {
     email: email.value,
     currentPassword: currentPassword.value,
     newPassword: newPassword.value,
+    selectedOption:selectedOption.value,
+    isExifDataKept:isExifDataKept.value,
     // 其他表单字段
   };
 
   // 调用后端提交数据的函数
-  // 例如，updateUserInfo(formData) 发送请求给后端并处理响应
   // updateUserInfo(formData);
   console.log(formData)
 };
@@ -45,7 +77,7 @@ const submitForm = () => {
 
 
     <div class="SettingText">
-      <div class="Username">Username</div>
+      <div class="Username NonInputElements">Username</div>
       <input class="InputField" type="text" placeholder="Tommy" v-model="username">
     </div>
 
@@ -71,24 +103,27 @@ const submitForm = () => {
     <div class="Group4">
       <div class="KeepImageExifDataOnUpload">Keep image Exif data on upload</div>
       <label class="Switch">
-        <input type="checkbox" class="ToggleSwitch">
+        <input type="checkbox" class="ToggleSwitch" v-model="isExifDataKept">
         <span class="Slider"></span>
       </label>
     </div>
 
 
+
     <div class="Group3">
       <div class="AutoDeleteUploads">Auto delete uploads</div>
       <div class="Dropdown">
-        <div class="SelectedOption">Don’t auto delete</div>
+        <div class="SelectedOption" @click="toggleDropdown">{{ selectedOption }}</div>
         <div class="DropdownIcon">▼</div>
         <div class="DropdownMenu">
-          <div class="DropdownOption">Option 1</div>
-          <div class="DropdownOption">Option 2</div>
-          <div class="DropdownOption">Option 3</div>
-          <div class="DropdownOption">Option 1</div>
-          <div class="DropdownOption">Option 2</div>
-          <div class="DropdownOption">Option 3</div>
+          <div
+              class="DropdownOption"
+              v-for="option in dropdownOptions"
+              :key="option"
+              @click="selectOption(option)"
+          >
+            {{ option }}
+          </div>
         </div>
       </div>
     </div>
@@ -146,6 +181,9 @@ const submitForm = () => {
   display: inline-flex;
 }
 
+.NonInputElements {
+  pointer-events: none;
+}
 
 /* Button Style */
 .FilterChip {
