@@ -154,6 +154,7 @@ const submitForm = () => {
       your current password
     </div>
   </div>
+  <div class="box"></div>
   <div class="CenteredButtonContainer">
     <button @click="submitForm" class="FilterChip">
       <div class="StateLayer">
@@ -183,6 +184,10 @@ const submitForm = () => {
 
 .NonInputElements {
   pointer-events: none;
+}
+
+.box{
+  height: 40px;
 }
 
 /* Button Style */
