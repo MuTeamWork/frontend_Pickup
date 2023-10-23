@@ -7,6 +7,13 @@ export function getFileList(){
     })
 }
 
+export function getOption(){
+    return request({
+        url: "/getOption",
+        method: "get",
+    })
+}
+
 export function updateUserInfo(data) {
     return request({
         method: "post",

@@ -10,12 +10,13 @@ const isExifDataKept = ref(false);
 
 const selectedOption = ref('Don’t auto delete'); // 初始选中值
 const dropdownOptions = ref([
-  'Option 1',
-  'Option 2',
-  'Option 3',
-  'Option 1',
-  'Option 2',
-  'Option 3',
+  'After 5 minutes',
+  'After 15 minutes',
+  'After 30 minutes',
+  'After 1 hour',
+  'After 3 hours',
+  'After 6 hours',
+  'After 12 hours',
 ]);
 
 const toggleDropdown = () => {
