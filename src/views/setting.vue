@@ -1,15 +1,23 @@
 <script setup>
-import {ref, onMounted} from "vue";
-import {updateUserInfo} from "../api/file.js";
+import {ref, onMounted, reactive} from "vue";
+import {getOption, updateUserInfo} from "../api/file.js";
 
 const username = ref("");
 const email = ref("");
 const currentPassword = ref("");
 const newPassword = ref("");
 const isExifDataKept = ref(false);
-
-const selectedOption = ref('Don’t auto delete'); // 初始选中值
+const Data = {
+  Option: {
+    email: '',
+    isExifDataKept: false,
+    selectedOption: '',
+    username: '',
+  },
+};
+const selectedOption = ref('Don’t auto delete');
 const dropdownOptions = ref([
+  'Don’t auto delete',
   'After 5 minutes',
   'After 15 minutes',
   'After 30 minutes',
@@ -18,10 +26,8 @@ const dropdownOptions = ref([
   'After 6 hours',
   'After 12 hours',
 ]);
-
+const dropdownMenu = document.querySelector('.DropdownMenu');
 const toggleDropdown = () => {
-  // 在点击SelectedOption时，切换DropdownMenu的显示状态
-  const dropdownMenu = document.querySelector('.DropdownMenu');
   if (dropdownMenu.style.display === 'block') {
     dropdownMenu.style.display = 'none';
   } else {
@@ -32,18 +38,35 @@ const toggleDropdown = () => {
 const selectOption = (option) => {
   // 点击DropdownOption时更新SelectedOption的值和隐藏DropdownMenu
   selectedOption.value = option;
-  const dropdownMenu = document.querySelector('.DropdownMenu');
   dropdownMenu.style.display = 'none';
+
 };
 
-
-
-// 初始化表单数据
 onMounted(() => {
-  // 这里可以添加初始化表单数据的逻辑
-  // 例如，从后端获取用户信息并填充表单字段
-});
+  getFile()
+})
+const getFile = () => {
+  getOption().then(res => {
+    if (res.code === '200' && Array.isArray(res.data) && res.data.length > 0) {
+      // 使用后端返回的第一个数据对象来初始化 Data.Option
+      Data.Option = res.data[0];
+      updateInputPlaceholders();
+    }
+  });
+}
+const updateInputPlaceholders = () => {
+  const usernameInput = document.querySelector('.InputField[type="text"]');
+  const emailInput = document.querySelector('.InputField[type="email"]');
 
+  if (usernameInput) {
+    usernameInput.placeholder = Data.Option.username;
+  }
+  if (emailInput) {
+    emailInput.placeholder = Data.Option.email;
+  }
+  isExifDataKept.value = Data.Option.isExifDataKept
+  selectedOption.value = Data.Option.selectedOption
+}
 
 const submitForm = () => {
   // 构造表单数据
@@ -58,8 +81,11 @@ const submitForm = () => {
   };
 
   // 调用后端提交数据的函数
-  // updateUserInfo(formData);
-  console.log(formData)
+  updateUserInfo(formData).then(res => {
+    if (res.code === '200') {
+      console.log(res.code)
+    }
+  });
 };
 </script>
 
@@ -212,10 +238,7 @@ const submitForm = () => {
 
 .StateLayer {
   width: 139px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 8px;
-  padding-right: 16px;
+  padding: 6px 16px 6px 8px;
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -487,6 +510,27 @@ const submitForm = () => {
   border-bottom-right-radius: 8px;
   display: none; /* Initially hidden */
   z-index: 999;
+  max-height: 200px; /* Adjust the max height as needed */
+  overflow-y: auto; /* Enable vertical scrollbar when content overflows max-height */
+
+  /* Customize the scrollbar */
+  scrollbar-width: thin; /* Hide the default scrollbar in Firefox */
+  scrollbar-color: #999999 #f0f0f0; /* Customize scrollbar colors */
+}
+
+/* Style the thumb (the draggable part of the scrollbar) */
+.DropdownMenu::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+.DropdownMenu::-webkit-scrollbar-thumb {
+  background: #999999; /* Set the background color of the thumb */
+  border-radius: 4px; /* Add some border radius for a rounded appearance */
+}
+
+/* Style the track (the background of the scrollbar) */
+.DropdownMenu::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Set the background color of the track */
 }
 
 
