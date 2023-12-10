@@ -1,17 +1,18 @@
 <script setup>
 import {ref, onMounted, reactive} from "vue";
 import {getOption, updateUserInfo} from "../api/file.js";
+import {ElMessage} from "element-plus";
 
 const username = ref("");
-const email = ref("");
+const mail = ref("");
 const currentPassword = ref("");
 const newPassword = ref("");
 const isExifDataKept = ref(false);
 const Data = {
   Option: {
-    email: '',
+    expireTime: '',
     isExifDataKept: false,
-    selectedOption: '',
+    mail: '',
     username: '',
   },
 };
@@ -26,6 +27,22 @@ const dropdownOptions = ref([
   'After 6 hours',
   'After 12 hours',
 ]);
+const stringToTimeMap = new Map([
+  ['Don’t auto delete', 0],  // 对应时间为0分钟
+  ['After 5 minutes', 5],
+  ['After 15 minutes', 15],
+  ['After 30 minutes', 30],
+  ['After 1 hour', 60],
+  ['After 3 hours', 180],
+  ['After 6 hours', 360],
+  ['After 12 hours', 720],
+]);
+const timeToStringMap = new Map(Array.from(stringToTimeMap.entries()).map(([key, value]) => [value, key]));
+const timeForOption = (option) => stringToTimeMap.get(option);
+
+// 通过时间获取字符串
+const optionForTime = (time) => timeToStringMap.get(time);
+
 const dropdownMenu = document.querySelector('.DropdownMenu');
 const toggleDropdown = () => {
   if (dropdownMenu.style.display === 'block') {
@@ -47,43 +64,46 @@ onMounted(() => {
 })
 const getFile = () => {
   getOption().then(res => {
-    if (res.code === '200' && Array.isArray(res.data) && res.data.length > 0) {
+    if (res.status === 200) {
       // 使用后端返回的第一个数据对象来初始化 Data.Option
-      Data.Option = res.data[0];
+      Data.Option = res.data;
+      console.log(Data.Option)
       updateInputPlaceholders();
     }
   });
 }
 const updateInputPlaceholders = () => {
   const usernameInput = document.querySelector('.InputField[type="text"]');
-  const emailInput = document.querySelector('.InputField[type="email"]');
+  const emailInput = document.querySelector('.InputField[type="mail"]');
 
   if (usernameInput) {
     usernameInput.placeholder = Data.Option.username;
   }
   if (emailInput) {
-    emailInput.placeholder = Data.Option.email;
+    emailInput.placeholder = Data.Option.mail;
   }
   isExifDataKept.value = Data.Option.isExifDataKept
-  selectedOption.value = Data.Option.selectedOption
+  selectedOption.value = optionForTime(Data.Option.expireTime)
 }
 
 const submitForm = () => {
-  // 构造表单数据
+
   const formData = {
     username: username.value,
-    email: email.value,
+    mail: mail.value,
     currentPassword: currentPassword.value,
     newPassword: newPassword.value,
-    selectedOption:selectedOption.value,
-    isExifDataKept:isExifDataKept.value,
-    // 其他表单字段
+    expireTime:timeForOption(selectedOption.value),
+    exif:isExifDataKept.value,
   };
-
+  const filteredFormData = Object.fromEntries(
+      Object.entries(formData).filter(([key, value]) => value !== "")
+  );
+  console.log(filteredFormData)
   // 调用后端提交数据的函数
-  updateUserInfo(formData).then(res => {
-    if (res.code === '200') {
-      console.log(res.code)
+  updateUserInfo(filteredFormData).then(res => {
+    if (res.status === 200) {
+      ElMessage.success('已成功提交');
     }
   });
 };
@@ -214,7 +234,7 @@ const submitForm = () => {
 }
 
 .box{
-  height: 40px;
+  height: 60px;
 }
 
 /* Button Style */

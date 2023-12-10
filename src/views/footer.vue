@@ -1,3 +1,14 @@
+<script setup>
+import router from "../router/index.js";
+
+const Toprivacy = () =>{
+  router.push('/privacy');
+}
+const ToService = () =>{
+  router.push('/service');
+}
+</script>
+
 <template>
   <div class="ContentArea">
     <div class="FooterArea">
@@ -7,10 +18,10 @@
       <div class="RightSection">
         <div class="TextContainer">
           <div class="Text">
-            <div class="Privacy">
+            <div class="Privacy" @click=Toprivacy>
               Privacy
             </div>
-            <div class="TermsOfService">
+            <div class="TermsOfService" @click=ToService>
               Terms of service
             </div>
           </div>
@@ -23,7 +34,7 @@
 <style scoped>
 /* ContentArea */
 .ContentArea {
-  width: calc(100vw - 120px);
+  width: calc(100vw - 180px);
   position: relative;
   flex-direction: column;
 }
@@ -72,9 +83,16 @@
   font-weight: 500;
   line-height: 20px;
   word-wrap: break-word;
+  cursor: pointer;
+}
+.Privacy:hover{
+  color: mediumblue;
 }
 
-/* TermsOfService */
+.TermsOfService:hover{
+  color: mediumblue;
+}
+  /* TermsOfService */
 .TermsOfService {
   color: #40484C;
   font-size: 14px;
@@ -82,6 +100,7 @@
   font-weight: 500;
   line-height: 20px;
   word-wrap: break-word;
+  cursor: pointer;
 }
 
 /* MutLogo1 */

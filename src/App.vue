@@ -7,5 +7,5 @@
 </script>
 
 <style scoped>
-
+@import "./assets/css/typography.module.css";
 </style>

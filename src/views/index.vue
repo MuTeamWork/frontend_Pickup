@@ -4,7 +4,6 @@
     <div class="MainArea">
       <Navbar />
       <router-view></router-view>
-      <Footer class="footer" v-if="!isSettingPage" />
     </div>
   </div>
 </template>
@@ -12,24 +11,12 @@
 <script>
 import Navbar from './navbar.vue';
 import Sidebar from './Sidebar.vue';
-import Footer from './footer.vue';
 
 export default {
   components: {
     Navbar,
-    Footer,
     Sidebar
   },
-  data() {
-    return {
-      isSettingPage: false
-    };
-  },
-  watch: {
-    $route(to, from) {
-      this.isSettingPage = to.name === 'settings';
-    }
-  }
 };
 </script>
 
@@ -58,8 +45,4 @@ html, body, div, img {
   display: inline-flex;
 }
 
-/* Ensure Footer stays at the bottom */
-.footer {
-  margin-top: auto;
-}
 </style>

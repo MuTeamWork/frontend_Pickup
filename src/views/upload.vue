@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <el-upload class="upload-demo" name="avatar" drag :before-upload="beforeUpload" :on-success="handleSuccess"
-               :on-error="handleError" :action="uploadAction" :multiple="true">
+    <el-upload class="upload-demo" name="file" drag :before-upload="beforeUpload" :on-success="handleSuccess"
+               :on-error="handleError" :action="uploadAction" :multiple="true" :headers="headers">
       <div v-if="imageUrls.length <= 0">
         <div class="Background" >
           <div class="shape">
@@ -51,7 +51,6 @@
               </div>
             </div>
           </div>
-
       </div>
 
       <template #tip>
@@ -60,23 +59,29 @@
         </div>
       </template>
     </el-upload>
+
   </div>
+
+  <Footer class="footer"/>
 
 </template>
 
 <script setup>
 import {ref} from 'vue'
-import {UploadFilled} from '@element-plus/icons-vue'
 import {ElMessage} from 'element-plus'
 import Footer from "./footer.vue";
 
 const imageUrls = ref([])
 
-const uploadAction = "https://www.fastmock.site/mock/0314575b179f8f13583244db97453df4/pic/fileUpload"
+const uploadAction = "http://10.0.0.5/api/file/fileUpload"
+
+const headers = {
+    'Authentication': localStorage.getItem('token')
+}
 
 const beforeUpload = (file) => {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
-  const isLt500K = file.size / 1024 < 50000
+  const isLt500K = file.size / 1024 < 5000
 
   if (!isJpgOrPng) {
     ElMessage.error('只能上传 JPG/PNG 格式的图片')
@@ -88,24 +93,29 @@ const beforeUpload = (file) => {
 
 const handleSuccess = (response, file) => {
   // 上传成功，添加图片链接
-  imageUrls.value.push(response.imageUrl)
-  ElMessage({
-    message: '上传成功',
-    type: 'success',
-  })
+  if (response.status === 200){
+    imageUrls.value.push(response.data.file)
+    console.log(imageUrls)
+    ElMessage.success('上传成功');
+  }else {
+    ElMessage.warning('上传失败');
+  }
 }
 
 const handleError = (err) => {
   // 上传失败
-  ElMessage.error('上传失败')
+  ElMessage.error('未知错误');
 }
 </script>
 
 <style scoped>
+.footer {
+  margin-top: auto;
+}
 /* 外层包裹形状的容器 */
 .Background {
   width: 280px;
-  height: 270px;
+  height: 250px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -120,6 +130,9 @@ const handleError = (err) => {
   top: 140px;
   position: absolute;
   background: rgba(255, 179, 25, 0.12);
+  border: none;
+  border-radius: 8px;
+  padding-left: 0px;
 }
 
 .Rectangle2 {
@@ -134,12 +147,14 @@ const handleError = (err) => {
 }
 
 .Polygon1 {
-  width: 140px;
-  height: 140px;
+  width: 0;
+  height: 0;
   left: 140px;
   top: 0;
   position: absolute;
-  background: rgba(46, 125, 50, 0.12);
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-bottom: 130px solid rgba(46, 125, 50, 0.12);;
 }
 
 .Ellipse1 {

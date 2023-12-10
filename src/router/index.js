@@ -1,11 +1,16 @@
 // router.js
-import { createRouter, createWebHashHistory } from "vue-router";
+import {createRouter, createWebHashHistory} from "vue-router";
 import Login from '../views/Login.vue';
 import Index from '../views/index.vue';
 import Setting from '../views/setting.vue';
 import Upload from '../views/upload.vue';
 import Preview from '../views/preview.vue';
+import History_login from "../views/history_login.vue";
+import Setting_login from "../views/setting_login.vue";
+import new_Page from "../views/new.vue";
 import axios from 'axios';
+import {ValidateToken} from "../api/file.js";
+import Register from "../views/register.vue";
 
 const routes = [
     {
@@ -18,32 +23,55 @@ const routes = [
                 path: '/upload',
                 name: 'upload',
                 component: Upload,
-                meta: { requiresAuth: true },
             },
             {
                 path: '/history',
                 name: 'history',
                 component: Preview,
-                meta: { requiresAuth: true },
+                meta: {requiresAuth: true},
             },
             {
                 path: '/settings',
                 name: 'settings',
                 component: Setting,
-                meta: { requiresAuth: true },
+                meta: {requiresAuth: true},
             },
             {
                 path: '/faq',
                 name: 'faq',
-                component: Preview,
-                meta: { requiresAuth: true },
+                component: new_Page,
             },
+            {
+                path: '/history_login',
+                name: 'history_login',
+                component: History_login
+            },
+            {
+                path: '/settings_login',
+                name: 'settings_login',
+                component: Setting_login
+            },
+            {
+                path: '/login',
+                name: 'login',
+                component: Login,
+            },
+            {
+                path: '/register',
+                name: 'register',
+                component: Register,
+            },
+            {
+                path: '/privacy',
+                name: 'privacy',
+                component: new_Page,
+            },
+            {
+                path: '/service',
+                name: 'service',
+                component: new_Page,
+            }
         ],
-    },
-    {
-        path: '/login',
-        name: 'login',
-        component: Login,
     },
 ];
 
@@ -58,27 +86,23 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     const token = localStorage.getItem('token');
-
-    if (requiresAuth && !token) {
-        // 如果页面需要身份验证但用户没有 token，则重定向到登录页
-        next('/login');
+    if (to.name === 'history' && !token) {
+        // 如果用户点击的是"history"路由且未登录，则重定向到 history_login
+        await router.push('/history_login');
+    } else if (to.name === 'settings' && !token) {
+        // 如果用户点击的是"history"路由且未登录，则重定向到 history_login
+        await router.push('/settings_login');
     } else if (requiresAuth && token) {
         try {
-            // 如果 token 是 '1111'，直接继续导航
-            if (token === '1111') {
-                next();
-            } else {
-                // 否则，发送 token 到后端验证，设置超时时间为 2 秒
-                const response = await axios.post('http://123.1.1.2/validateToken', { token }, { timeout: 2000 });
-
-                if (response.data.success) {
-                    // 如果后端返回成功，则直接继续导航
-                    next();
-                } else {
-                    // 如果后端返回失败，说明 token 无效，需要用户重新登录
-                    next('/login');
-                }
-            }
+            await ValidateToken(token)
+                .then(res => {
+                    console.log(res)
+                    if (res.code === 200) {
+                        next();
+                    } else {
+                        router.push('/login');
+                    }
+                })
         } catch (error) {
             // 请求失败，可能是网络错误等情况
             if (axios.isCancel(error)) {

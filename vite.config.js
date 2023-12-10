@@ -1,14 +1,21 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   css: {
-    loaderOptions: {
+    preprocessorOptions: {
       scss: {
         additionalData: `@import "./public/css/colors.module.css";`
       }
     }
+  },
+  Server: {
+    proxy: {
+      '/api':{
+        target: 'http://10.0.0.5/api',
+        changeOrigin: true,
+      }
+    },
   }
 });

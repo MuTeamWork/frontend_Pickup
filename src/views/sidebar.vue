@@ -99,10 +99,6 @@ export default {
       // 获取滚动的垂直距离
       const scrollY = window.scrollY || window.pageYOffset;
 
-      // 根据需要调整侧边栏的位置
-      // 例如：你可以使用 this.$refs.MenuArea 来引用 .MenuArea 元素
-      // 然后设置其 top 属性
-      // this.$refs.MenuArea.style.top = `${scrollY}px`;
     },
     getIconClass(iconName) {
       return {
@@ -112,9 +108,9 @@ export default {
     },
     getIconSrc(iconName) {
       return this.iconImages[`${iconName}_${
-          this.currentRoute === `/${iconName}` && this.hoveredIcon === iconName
+          (this.currentRoute === `/${iconName}`|| this.currentRoute === `/${iconName}_login`) && this.hoveredIcon === iconName
               ? 'selected_hover'
-              : this.currentRoute === `/${iconName}`
+              : this.currentRoute === `/${iconName}` || this.currentRoute === `/${iconName}_login`
                   ? 'selected'
                   : this.hoveredIcon === iconName
                       ? 'hover'
