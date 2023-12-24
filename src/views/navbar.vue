@@ -12,7 +12,7 @@
       <!-- AvatarPicture if token is available -->
       <div v-if="hasToken" class="AvatarPicture" @mouseover="setTooltip(true)" @mouseout="startHideTimer"
            @click="handleTooltipClick" :class="{ 'clicked': clicked }">
-        <img class="AvatarPicture" src="../assets/user.jfif" alt=""/>
+        <img class="AvatarPicture" src="../assets/user.svg" alt=""/>
         <div v-if="showTooltip" @click="handleTooltipClick">
           <el-button type="danger" plain class="Tooltip">Logout</el-button>
         </div>

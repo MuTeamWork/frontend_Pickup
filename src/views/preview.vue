@@ -1,7 +1,20 @@
 <template>
-  <el-row>
-    <el-col :span="6" v-for="item in Data.fileList" :key="item.fid">
-      <el-card :body-style="{ padding: '0px' }" class="card" shadow="hover">
+  <div class="search-container">
+    <el-autocomplete
+        v-model="state"
+        :fetch-suggestions="querySearchAsync"
+        placeholder="Enter description to search..."
+        size="large"
+        @select="handleSubmit"
+        @keyup.enter.native="handleSubmit"
+        :suffix-icon="Search"
+        class="search-input"
+        style="width: 416px;height: 40px;"
+    />
+  </div>
+  <el-row style="padding-left: 60px;padding-right: 60px" :gutter="8">
+    <el-col :span="3" v-for="item in Data.fileList" :key="item.fid">
+      <el-card :body-style="{ padding: '0px' }" class="card" shadow="hover" style="margin-left: 0">
         <div class="card-header" ref="headerRef">
           <div class="svg-icon">
             <div class="del" @click="delPic(item.fid)">
@@ -71,35 +84,101 @@
 
           </div>
         </div>
-        <el-image style="width: 100%; height: 300px;" :src="item.thumbnail"/>
+        <el-image style="width: 100%; height: 200px;" :src="item.thumbnail"/>
       </el-card>
     </el-col>
   </el-row>
 </template>
 
 <script setup>
-import {delPicture, getFileList, Login} from '../api/file'
+import {delPicture, getFileList, GetTag, Login, SearchFile} from '../api/file'
 import {onMounted, ref} from 'vue';
 import {reactive} from 'vue';
 import {ElMessage} from "element-plus";
 import router from "../router/index.js";
+import { Search } from '@element-plus/icons-vue'
+const state = ref('');
 
-const Data = reactive({
-  fileList: []
-})
-onMounted(() => {
-  getFile()
-})
-const getFile = () => {
-  getFileList().then(res => {
-    if (res.status === 200) {
+const links = ref([]);
+
+const loadAll = () => {
+  return Data.tagList.map(item => ({
+    value: item,
+  }));
+};
+
+let timeout;
+const querySearchAsync = (queryString, cb) => {
+  const results = queryString
+      ? links.value.filter(createFilter(queryString))
+      : links.value;
+
+  clearTimeout(timeout);
+  timeout = setTimeout(() => {
+    cb(results);
+  }, 1000 * Math.random());
+};
+
+const createFilter = (queryString) => {
+  return (linkItem) => {
+    return (
+        linkItem.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+    );
+  };
+};
+
+
+const handleSubmit = () =>{
+  if (state.value === ""){
+    getFile()
+  }else {
+    const formData = {
+      tags: [state.value],
+    };
+    console.log(formData)
+    getSearchFile(formData)
+  }
+}
+const getSearchFile = (data) => {
+  SearchFile(data).then(res => {
+    if (res.status === 200 && Array.isArray(res.data)) {
       Data.fileList = res.data
     }
   })
-}
+};
+
+onMounted(() => {
+  links.value = loadAll();
+});
+// Use the defined type for the fileList array
+const Data = reactive({
+  fileList: [],
+  tagList:[],
+});
+onMounted(() => {
+  getFile()
+  getTag()
+})
+const getFile = () => {
+  getFileList().then(res => {
+    if (res.status === 200 && Array.isArray(res.data)) {
+      Data.fileList = res.data
+    }
+  })
+};
+
+const getTag = () => {
+  GetTag().then(res => {
+    if (res.status === 200 && Array.isArray(res.data)) {
+      Data.tagList = res.data
+      links.value = loadAll();
+      console.log(Data.tagList)
+    }
+  })
+};
 const delPic = (id) => {
-  const data=[{fid:id}]
-  console.log(id)
+  const data={fids:[id]}
+  console.log(BigInt(id).toString())
   delPicture(data)
       .then(res => {
         if (res.status === 200) {
@@ -132,6 +211,13 @@ const copyToClipboard = (textToCopy) => {
 </script>
 
 <style scoped>
+.search-container {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 60px;
+  padding-bottom: 16px;
+  padding-top: 8px;
+}
 .card-header {
   background-color: rgba(240, 240, 240, 0.5);
   padding: 10px;

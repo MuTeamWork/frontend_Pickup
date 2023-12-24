@@ -51,3 +51,20 @@ export function delPicture(data) {
         data:data,
     })
 }
+export function SearchFile(data) {
+    return request({
+        method: "post",
+        url: "/file/getFileListByTags",
+        data:data,
+    })
+}
+
+
+
+export function GetTag(){
+    return request({
+        method: "get",
+        url:"/file/getFileTagListByUid",
+    })
+}
+

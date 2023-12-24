@@ -28,7 +28,7 @@ const routes = [
                 path: '/history',
                 name: 'history',
                 component: Preview,
-                meta: {requiresAuth: true},
+                // meta: {requiresAuth: true},
             },
             {
                 path: '/settings',

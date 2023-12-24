@@ -29,13 +29,13 @@ const dropdownOptions = ref([
 ]);
 const stringToTimeMap = new Map([
   ['Don’t auto delete', 0],  // 对应时间为0分钟
-  ['After 5 minutes', 5],
-  ['After 15 minutes', 15],
-  ['After 30 minutes', 30],
-  ['After 1 hour', 60],
-  ['After 3 hours', 180],
-  ['After 6 hours', 360],
-  ['After 12 hours', 720],
+  ['After 5 minutes', 300],
+  ['After 15 minutes', 900],
+  ['After 30 minutes', 1800],
+  ['After 1 hour', 3600],
+  ['After 3 hours', 10800],
+  ['After 6 hours', 21600],
+  ['After 12 hours', 42000],
 ]);
 const timeToStringMap = new Map(Array.from(stringToTimeMap.entries()).map(([key, value]) => [value, key]));
 const timeForOption = (option) => stringToTimeMap.get(option);
@@ -74,7 +74,7 @@ const getFile = () => {
 }
 const updateInputPlaceholders = () => {
   const usernameInput = document.querySelector('.InputField[type="text"]');
-  const emailInput = document.querySelector('.InputField[type="mail"]');
+  const emailInput = document.querySelector('.InputField[type="email"]');
 
   if (usernameInput) {
     usernameInput.placeholder = Data.Option.username;
@@ -94,7 +94,7 @@ const submitForm = () => {
     currentPassword: currentPassword.value,
     newPassword: newPassword.value,
     expireTime:timeForOption(selectedOption.value),
-    exif:isExifDataKept.value,
+    isExifDataKept:isExifDataKept.value,
   };
   const filteredFormData = Object.fromEntries(
       Object.entries(formData).filter(([key, value]) => value !== "")
@@ -104,6 +104,8 @@ const submitForm = () => {
   updateUserInfo(filteredFormData).then(res => {
     if (res.status === 200) {
       ElMessage.success('已成功提交');
+    }else{
+      ElMessage.warning('修改失败');
     }
   });
 };
@@ -125,13 +127,13 @@ const submitForm = () => {
 
     <div class="SettingText">
       <div class="Username NonInputElements">Username</div>
-      <input class="InputField" type="text" placeholder="Tommy" v-model="username">
+      <input class="InputField" type="text" placeholder="" v-model="username">
     </div>
 
 
     <div class="SettingText">
       <div class="Username">Email address</div>
-      <input class="InputField" type="email" placeholder="1651215abab@outlook.com" v-model="email">
+      <input class="InputField" type="email" placeholder="" v-model="mail" disabled>
     </div>
 
     <div class="Line1"></div>

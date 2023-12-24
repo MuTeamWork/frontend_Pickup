@@ -52,8 +52,9 @@ const register = () => {
   Register(formData)
       .then(res => {
         if (res.status === 200) {
-          localStorage.setItem('token', res.token);
-          console.log(res.token)
+          localStorage.setItem('token', res.data);
+          localStorage.setItem('name', username.value);
+          console.log(res.data)
           ElMessage.success('注册成功');
           setTimeout(() => {
             window.location.reload();

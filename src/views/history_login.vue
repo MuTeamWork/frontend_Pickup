@@ -69,22 +69,12 @@ const login = () =>{
 }
 
 .Group2 {
-  align-self: stretch;
-  position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
-  display: flex;
 }
-
 .ArrowCircleRight {
-  width: 60px;
-  height: 60px;
-  padding-left: 240px;
-  left: 616px;
-  top: 6px;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-left: 10px;
+  margin-top: 9px;
 }
 </style>

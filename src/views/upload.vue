@@ -21,10 +21,11 @@
           <div class="UploadImage">
             <img data-v-16f6707d="" class="AvatarPicture1" :src="imageUrls[0]" alt="">
           </div>
-          <div class="UploadComplete">Upload complete</div>
-          <div class="EmbedCodes">
+
+        <div class="UploadComplete">Upload complete</div>
+          <div class="EmbedCodes" @click.stop>
             <div class="Frame6">
-              <div class="EmbedCodes">Embed codes</div>
+              <div class="EmbedCode">Embed codes</div>
             </div>
             <div class="LinkOnly1">
               <div class="LinkOnly">Link only</div>
@@ -35,7 +36,7 @@
             <div class="LinkOnly1">
               <div class="Html">HTML</div>
               <div class="LinkArea">
-                <div class="AHrefHttpsExampleComImage4lkrcoznTargetBlankImgSrcHttpsExampleComImage4lkrcoznJpgA">&lt;a href="https://example.com/image/4LkRCOzn" target="_blank"&gt;&lt;img src="{{ imageUrls[0] }}" &gt;&lt;/a&gt;</div>
+                <div class="AHrefHttpsExampleComImage4lkrcoznTargetBlankImgSrcHttpsExampleComImage4lkrcoznJpgA">&lt;a href="{{ imageUrls[0] }}" target="_blank"&gt;&lt;img src="{{ imageUrls[0] }}" &gt;&lt;/a&gt;</div>
               </div>
             </div>
             <div class="LinkOnly1">
@@ -47,17 +48,11 @@
             <div class="LinkOnly1">
               <div class="Markdown">Markdown</div>
               <div class="LinkArea">
-                <div class="ExampleFileNamePngHttpsExampleComImage4lkrcoznJpg">![example_file_name.png]({{ imageUrls[0] }})</div>
+                <div class="ExampleFileNamePngHttpsExampleComImage4lkrcoznJpg">![{{ imageUrls[1]}}]({{ imageUrls[0] }})</div>
               </div>
             </div>
           </div>
       </div>
-
-      <template #tip>
-        <div class="el-upload__tip">
-          小于500kb的Jpg /png文件
-        </div>
-      </template>
     </el-upload>
 
   </div>
@@ -80,8 +75,8 @@ const headers = {
 }
 
 const beforeUpload = (file) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
-  const isLt500K = file.size / 1024 < 5000
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'|| file.type === 'image/webp'
+  const isLt500K = file.size / 1024 < 50000
 
   if (!isJpgOrPng) {
     ElMessage.error('只能上传 JPG/PNG 格式的图片')
@@ -94,7 +89,9 @@ const beforeUpload = (file) => {
 const handleSuccess = (response, file) => {
   // 上传成功，添加图片链接
   if (response.status === 200){
+    imageUrls.value = [];
     imageUrls.value.push(response.data.file)
+    imageUrls.value.push(response.data.fileName)
     console.log(imageUrls)
     ElMessage.success('上传成功');
   }else {
@@ -213,6 +210,7 @@ const handleError = (err) => {
   justify-content: center;
   align-items: center;
   display: inline-flex;
+  color: #70787C;
 }
 
 /* AvatarPicture */
@@ -223,7 +221,7 @@ const handleError = (err) => {
 
 /* UploadComplete */
 .UploadComplete {
-  width: 1135px;
+
   text-align: center;
   color: #191C1D;
   font-size: 36px;
@@ -244,6 +242,7 @@ const handleError = (err) => {
   align-items: flex-start;
   gap: 8px;
   display: inline-flex;
+  z-index: 999;
 }
 
 /* Frame6 */
@@ -257,7 +256,7 @@ const handleError = (err) => {
 }
 
 /* EmbedCodes header */
-.EmbedCodes .EmbedCodes {
+.EmbedCode {
   color: #191C1D;
   font-size: 22px;
   font-family: Roboto;
@@ -297,6 +296,12 @@ const handleError = (err) => {
   justify-content: flex-end;
   align-items: center;
   display: inline-flex;
+  position: relative;
+}
+.LinkArea .el-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 /* LinkArea content */

@@ -22,6 +22,12 @@ const login = () =>{
           </svg>
         </div>
       </div>
+<!--      <div class="leftbottom">-->
+<!--        <svg xmlns="http://www.w3.org/2000/svg" width="803" height="509" viewBox="0 0 803 509" fill="none">-->
+<!--          <path d="M3.15312 683.181C-148.86 643.594 -173.803 438.295 -35.6924 363.459L-8.17459 348.548C51.2858 316.329 94.7154 260.886 111.759 195.441L119.646 165.153L85.3918 156.233L119.646 165.153C159.233 13.1401 364.532 -11.8033 439.368 126.308L454.279 153.825C486.498 213.286 541.94 256.715 607.386 273.759L637.674 281.646C789.687 321.233 814.63 526.532 676.519 601.368L649.001 616.279C589.541 648.498 546.111 703.94 529.068 769.386L521.181 799.674C481.594 951.687 276.295 976.63 201.459 838.519L186.548 811.001C154.329 751.541 98.8864 708.111 33.4408 691.068L3.15312 683.181Z" stroke="#2E7D32" stroke-opacity="0.12" stroke-width="71"/>-->
+<!--        </svg>-->
+<!--      </div>-->
+
     </div>
   </div>
 </template>
@@ -62,12 +68,11 @@ const login = () =>{
 }
 
 .Group1 {
-  align-self: stretch;
-  position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
-  display: flex;
 }
+
 .Group1:hover {
   /* 鼠标悬浮时的样式 */
   color: mediumblue;
@@ -78,19 +83,10 @@ const login = () =>{
 
 
 .SignInToSaveSettings {
-  width: 741px;
+  margin-right: 10px;
 }
 
 .ArrowCircleRight {
-  width: 60px;
-  height: 60px;
-  padding-left: 24px;
-  left: 675px;
-  top: 8px;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  fill: black;
+  margin-top: 9px;
 }
 </style>
