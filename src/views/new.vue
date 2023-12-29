@@ -1,6 +1,6 @@
 <script setup>
 
-import Footer from "./footer.vue";
+import Footer from "../components/footer.vue";
 </script>
 
 <template>

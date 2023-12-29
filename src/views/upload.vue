@@ -64,7 +64,7 @@
 <script setup>
 import {ref} from 'vue'
 import {ElMessage} from 'element-plus'
-import Footer from "./footer.vue";
+import Footer from "../components/footer.vue";
 
 const imageUrls = ref([])
 
@@ -75,7 +75,7 @@ const headers = {
 }
 
 const beforeUpload = (file) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'|| file.type === 'image/webp'
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/bmp'|| file.type === 'image/webp'
   const isLt500K = file.size / 1024 < 50000
 
   if (!isJpgOrPng) {

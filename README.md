@@ -1,55 +1,170 @@
-## 前端第一版
-初始化：
-```
-npm install
-```
-原神(没有 启动！
-```
-vite
-```
+[![pihUemQ.png](https://s11.ax1x.com/2023/12/14/pihUemQ.png)](https://imgse.com/i/pihUemQ)
 
+# PicUp
 
-现在就两个页面
+A lightweight, customizable image hosting system.
 
-上传
-![image](https://github.com/MuTeamWork/frontend_Pickup/assets/91261153/6ec08ff6-5013-4def-8cba-986cc03874d5)
-图片展示
-![image](https://github.com/MuTeamWork/frontend_Pickup/assets/91261153/a4f5d349-ec8d-45c8-91b2-3131df1a628d)
-登录都还没写，懒得写能用就行
+## Badges
 
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
-mock地址:'https://www.fastmock.site/mock/0314575b179f8f13583244db97453df4/pic'
+## Screenshots
 
+[![pihUt0J.png](https://s11.ax1x.com/2023/12/14/pihUt0J.png)](https://imgse.com/i/pihUt0J)
 
-呃呃呃
+[![pihUsXD.png](https://s11.ax1x.com/2023/12/14/pihUsXD.png)](https://imgse.com/i/pihUsXD)
 
- code = 200 为成功
+## architecture diagram
 
-###  获取图片
-/getFileList
+[![architecture.png](https://www.freeimg.cn/i/2023/12/29/658e70658b9ae.png)](https://www.freeimg.cn/i/2023/12/29/658e70658b9ae.png)
 
-```json
-{
-  "code": "200",
-  "data": [
-    {
-      "id": "1",
-      "file_url": "www.cover.webp"
-    },
-    {
-      "id": "2",
-      "file_url": "www.cover.webp"
-    }
-  ]
-}
+## 🛠 Skills
+
+Java, HTML, CSS, JavaScript,python...
+
+## Run Locally
+
+### frontend
+
+Clone the project
+
+```bash
+  git clone https://github.com/MuTeamWork/frontend_Pickup
 ```
 
-###  上传图片
-/fileUpload
-```json
-{
-  "code": "200",
-  "imageUrl": "www.rousel-cover.webp",
-  "desc": "成功"
-}
+Go to the project directory
+
+```bash
+  cd frontend_Pickup
 ```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+
+### backend
+
+Clone the project
+
+```bash
+ git clone https://github.com/MuTeamWork/backend_Picup
+```
+
+Start the server
+
+```bash
+ script.sh
+```
+
+open the tag function
+
+```bash
+ docker-compose up -d
+```
+
+run the python
+
+```bash
+ docker build -t regulus/img_tagging:0.0.1 .
+```
+
+## Tech Stack
+
+**Client:** Vue, Vite, ElementPlus
+
+**Server:** Java, SpringBoot, MybatisPlus,Python
+
+## API Reference
+
+#### User login
+
+```http
+  GET /user/doLogin
+```
+
+| Name | Location | Type   | Required | Description |
+| ---- | -------- | ------ | -------- | ----------- |
+| body | body     | object | no       | none        |
+
+#### Get user information
+
+```http
+  GET /user/getRole
+```
+
+| Name   | Type    | Required | Restrictions | Title | description |
+| ------ | ------- | -------- | ------------ | ----- | ----------- |
+| status | integer | true     | none         |       | none        |
+| msg    | string  | true     | none         |       | none        |
+| data   | string  | true     | none         |       | none        |
+
+#### register
+
+```http
+  POST /user/register
+```
+
+| Name | Location | Type   | Required | Description |
+| ---- | -------- | ------ | -------- | ----------- |
+| body | body     | object | no       | none        |
+
+#### getFileList
+
+```http
+  GET /file/getFileList
+```
+
+| Name       | Type     | Required | Restrictions | Title | description |
+| ---------- | -------- | -------- | ------------ | ----- | ----------- |
+| status     | integer  | true     | none         |       | none        |
+| msg        | string   | true     | none         |       | none        |
+| data       | [object] | true     | none         |       | none        |
+| fid        | integer  | true     | none         |       | none        |
+| fileName   | string   | true     | none         |       | none        |
+| file       | string   | true     | none         |       | none        |
+| thumbnail  | string   | true     | none         |       | none        |
+| expireTime | null     | true     | none         |       | none        |
+
+## Futures
+
+- Light/dark mode toggle
+- Live previews
+- Fullscreen mode
+- Cross platform
+- OSS Object storage
+
+## Authors
+
+- [@lustresix](https://github.com/lustresix)
+
+- [@Logthm](https://github.com/Logthm)
+
+- [@aceukiyo](https://github.com/aceukiyo)
+
+- [@Shuwugar](https://github.com/Shuwugar)
+
+- [@teachermark](https://github.com/teachermark)
+
+- [@whytakeaname](https://github.com/whytakeaname)
+
+- [@Hathaway](https://github.com/Hathaway-Z)
+  
+  ## FAQ
+
+#### How to upload an image?
+
+You merely need to drag the image into the designated rectangular area on the upload page, or click on that area, and then select the desired image from the file picker that appears subsequently.
+
+#### What is EXIF information? Should I preserve it?
+
+EXIF data contains camera, date, location, and image details. Preserve it for photography analysis and organizing photos, but consider removing it for privacy and to reduce file size.
